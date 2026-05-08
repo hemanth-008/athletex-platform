@@ -90,7 +90,7 @@ export default function RegisterPage() {
   return (
     <div className="flex min-h-screen bg-background">
       {/* Left side */}
-      <div className="hidden lg:flex lg:w-1/2 relative bg-[#0A0A0A] items-center justify-center overflow-hidden">
+      <div className="hidden md:flex md:w-1/2 relative bg-[#0A0A0A] items-center justify-center overflow-hidden sticky top-0 h-screen z-0">
         <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1541534741688-6078c6bfb5c5?q=80&w=2069&auto=format&fit=crop')] bg-cover bg-center opacity-30 mix-blend-overlay"></div>
         <div className="absolute inset-0 bg-gradient-to-t from-[#0A0A0A] via-transparent to-[#0A0A0A]"></div>
         
@@ -102,7 +102,7 @@ export default function RegisterPage() {
       </div>
 
       {/* Right side */}
-      <div className="flex-1 flex flex-col py-12 px-8 sm:px-16 lg:px-24 overflow-y-auto no-scrollbar">
+      <div className="flex-1 flex flex-col py-12 px-8 sm:px-16 md:px-24 overflow-y-auto h-screen no-scrollbar">
         <div className="w-full max-w-md mx-auto">
           <h2 className="text-3xl font-bold tracking-tight mb-2">Create an account</h2>
           <p className="text-muted-foreground mb-8">Step {step} of 2</p>

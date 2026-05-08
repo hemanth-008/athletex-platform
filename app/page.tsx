@@ -51,7 +51,7 @@ export default function LandingPage() {
             className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16"
           >
             <Link href="/auth/register?type=athlete">
-              <Button size="lg" className="w-full sm:w-auto text-lg h-14 px-8 rounded-full shadow-[0_0_30px_-5px_rgba(255,107,44,0.5)]">
+              <Button size="lg" className="w-full sm:w-auto text-lg h-14 px-8 py-3 rounded-full bg-[#FF6B2C] text-[#FFFFFF] font-semibold hover:bg-[#E55A1F] hover:scale-[1.02] transition-transform shadow-[0_0_30px_-5px_rgba(255,107,44,0.5)]">
                 Join as Athlete
               </Button>
             </Link>

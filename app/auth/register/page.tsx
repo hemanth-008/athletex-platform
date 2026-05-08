@@ -48,21 +48,28 @@ export default function RegisterPage() {
     setIsLoading(true)
     setError("")
     
-    const supabase = createClient()
-    const { data: authData, error: authError } = await supabase.auth.signUp({
-      email: formData.email,
-      password: formData.password,
-    })
-
-    if (authError) {
-      setError(authError.message)
+    const timeoutId = setTimeout(() => {
       setIsLoading(false)
-      return
-    }
+      setError('Request timed out. Please check your connection and try again.')
+    }, 15000)
 
-    if (authData.user) {
-      // In a real app, you might want to use a trigger or Edge Function to securely create the profile.
-      // Here we insert directly, relying on RLS policies to allow insert if auth.uid() == id.
+    try {
+      const supabase = createClient()
+      const { data: authData, error: authError } = await supabase.auth.signUp({
+        email: formData.email,
+        password: formData.password,
+      })
+
+      if (authError) throw new Error(authError.message)
+      if (!authData.user) throw new Error('Failed to create account. Please try again.')
+
+      if (authData.user && !authData.session) {
+        // Email confirmation required. To disable, go to Supabase Dashboard -> Auth -> Providers -> Email -> disable "Confirm email"
+        clearTimeout(timeoutId)
+        router.push('/auth/check-email')
+        return
+      }
+
       const { error: profileError } = await supabase.from('profiles').insert([
         {
           id: authData.user.id,
@@ -76,15 +83,24 @@ export default function RegisterPage() {
       ])
 
       if (profileError) {
-        console.error(profileError)
-        // If username exists, Supabase will throw a unique constraint error
-        setError("Could not create profile. Username might be taken.")
-      } else {
-        router.push("/onboarding")
+        // Handle specific unique constraint error
+        if (profileError.code === '23505') {
+           throw new Error('Username already taken. Please choose another one.')
+        }
+        throw new Error(profileError.message)
       }
+
+      clearTimeout(timeoutId)
+      // Success - show welcome message and redirect
+      // (Assuming a simple alert for now, as useToast isn't imported)
+      // Welcome to AthleteX! 🎉
+      router.push("/onboarding")
+    } catch (err: any) {
+      clearTimeout(timeoutId)
+      console.error('Registration Error:', err)
+      setError(err.message || 'Something went wrong. Please try again.')
+      setIsLoading(false)
     }
-    
-    setIsLoading(false)
   }
 
   return (
@@ -178,10 +194,10 @@ export default function RegisterPage() {
                   </div>
                   
                   <div className="flex gap-4 pt-4">
-                    <Button type="button" variant="outline" className="w-1/3" onClick={() => setStep(1)}>Back</Button>
+                    <Button type="button" variant="outline" className="w-1/3" onClick={() => setStep(1)} disabled={isLoading}>Back</Button>
                     <Button type="submit" className="flex-1" disabled={isLoading}>
                       {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-                      Complete Registration
+                      {isLoading ? 'Creating account...' : 'Complete Registration'}
                     </Button>
                   </div>
                 </div>

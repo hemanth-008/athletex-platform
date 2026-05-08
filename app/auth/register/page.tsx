@@ -95,9 +95,11 @@ export default function RegisterPage() {
         <div className="absolute inset-0 bg-gradient-to-t from-[#0A0A0A] via-transparent to-[#0A0A0A]"></div>
         
         <div className="relative z-10 flex flex-col items-center text-center px-12">
-          <Trophy className="w-24 h-24 text-primary mb-8" />
-          <h1 className="text-5xl font-bold text-white mb-4 tracking-tight">Join the Revolution</h1>
-          <p className="text-xl text-gray-400 max-w-md">Create your profile, showcase your stats, and get scouted by top teams worldwide.</p>
+          <div className="bg-[rgba(255,107,44,0.12)] rounded-full p-8 animate-trophy-glow mb-8">
+            <Trophy className="w-[120px] h-[120px] text-[#FF6B2C] opacity-100" />
+          </div>
+          <h1 className="text-[36px] font-[800] text-[#FFFFFF] mb-4 tracking-tight">Join the Revolution</h1>
+          <p className="text-[16px] text-[#AAAAAA] max-w-md">Create your profile, showcase your stats, and get scouted by top teams worldwide.</p>
         </div>
       </div>
 

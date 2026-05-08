@@ -19,11 +19,11 @@ export default function Navbar() {
   ];
 
   return (
-    <nav className="sticky top-0 z-[100] w-full border-b bg-[#0A0A0A]/95 backdrop-blur-md border-white/10">
+    <nav className="sticky top-0 z-[50] w-full border-b border-[#E5E5E5] bg-[#FFFFFF] shadow-[0_1px_8px_rgba(0,0,0,0.08)]">
       <div className="container mx-auto flex h-16 items-center justify-between px-4">
         {/* Logo */}
         <Link href="/" className="flex items-center gap-2">
-          <span className="text-2xl font-bold text-primary tracking-tighter">AthleteX</span>
+          <span className="text-[22px] font-[800] text-[#000000] tracking-tighter">AthleteX</span>
         </Link>
 
         {/* Desktop Nav */}
@@ -32,7 +32,7 @@ export default function Navbar() {
             <Link
               key={link.name}
               href={link.href}
-              className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors flex items-center gap-1.5"
+              className="text-[15px] font-[600] text-[#111111] hover:text-[#FF6B2C] transition-colors duration-200 flex items-center gap-1.5"
             >
               <link.icon className="w-4 h-4" />
               {link.name}
@@ -44,7 +44,7 @@ export default function Navbar() {
         <div className="hidden md:flex items-center gap-4">
           <Link href="/notifications" className="relative">
             <Button variant="ghost" size="icon" className="rounded-full">
-              <Bell className="w-5 h-5" />
+              <Bell className="w-[22px] h-[22px] text-[#111111]" />
               {unreadCount > 0 && (
                 <span className="absolute top-1.5 right-1.5 w-2 h-2 bg-destructive rounded-full animate-pulse-glow" />
               )}
@@ -53,9 +53,9 @@ export default function Navbar() {
           
           {/* Avatar Dropdown (simplified without dropdown-menu radix component for stability) */}
           <Link href="/athletes/me">
-            <Avatar className="cursor-pointer border border-border hover:border-primary transition-colors">
+            <Avatar className="cursor-pointer border-2 border-[#111111] bg-[#000000] text-[#FFFFFF] hover:border-primary transition-colors">
               <AvatarImage src="" alt="@user" />
-              <AvatarFallback className="bg-primary/10 text-primary font-semibold">U</AvatarFallback>
+              <AvatarFallback className="bg-transparent text-[#FFFFFF] font-semibold">U</AvatarFallback>
             </Avatar>
           </Link>
         </div>
